@@ -1,4 +1,7 @@
 # HSA-18-master_slave
+
+[PostgresConf South Africa - PostgreSQL replication by example](https://www.youtube.com/watch?v=5BeC1aD4z8E&t=72s&ab_channel=PostgresConfSouthAfrica)
+
 Let’s setup a PostgreSQL database
 
 For setting up a postgreSQL database with docker, you could go to their official docker hub page, check the various versions and configurations. 
