@@ -2,6 +2,12 @@
 
 [PostgresConf South Africa - PostgreSQL replication by example](https://www.youtube.com/watch?v=5BeC1aD4z8E&t=72s&ab_channel=PostgresConfSouthAfrica)
 
+[Medium - PostgreSQL Replication with Docker](https://medium.com/swlh/postgresql-replication-with-docker-c6a904becf77)
+
+[Medium - PostgreSQL master-slave database replication](https://medium.com/omis-engineering/django-multiple-database-system-using-postgresql-master-slave-database-architecture-f71d4e9e53ba)
+
+[Medium - https://prudnitskiy.pro/2018/01/05/pgsql-replica/](https://medium.com/swlh/postgresql-replication-with-docker-c6a904becf77)
+
 Let’s setup a PostgreSQL database
 
 For setting up a postgreSQL database with docker, you could go to their official docker hub page, check the various versions and configurations. 
