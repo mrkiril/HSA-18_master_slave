@@ -1,0 +1,91 @@
+version: '3.6'
+services:
+
+
+### PostgreSQL ###########################################
+  projector_postgres_master:
+    container_name: projector_postgres_master
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_USER: master
+      POSTGRES_DB: hw18_projector
+      POSTGRES_PORT: 5432
+    ports:
+      - 127.0.0.1:54320:5432
+    volumes:
+      - ./postgres/db-data-slave1:/tmp/postgresslave1
+      - ./postgres/db-data-slave2:/tmp/postgresslave2
+      - ./postgres/db-data-master:/var/lib/postgresql/data
+      - ./postgres/docker_postgres_init.sh:/docker-entrypoint-initdb.d/docker_postgres_init.sh
+    networks:
+      - default
+
+#  projector_postgres_slave1:
+#    container_name: projector_postgres_slave1
+#    image: postgres:13
+#    environment:
+#      POSTGRES_PASSWORD: mysecretpassword
+#      POSTGRES_USER: master
+#      POSTGRES_DB: hw18_projector
+#      POSTGRES_PORT: 5432
+#    ports:
+#      - 127.0.0.1:54321:5432
+#    volumes:
+#      - ./postgres/db-data-slave1:/var/lib/postgresql/data
+##      - ./postgres/docker_postgres_init_slave.sh:/docker-entrypoint-initdb.d/docker_postgres_init.sh
+##      - ./postgres/postgres_slave.conf:/etc/postgresql/postgresql.conf
+#
+#    networks:
+#      - hw18_projector
+#
+#  projector_postgres_slave2:
+#    container_name: projector_postgres_slave2
+#    image: postgres:13
+#    environment:
+#      POSTGRES_PASSWORD: mysecretpassword
+#      POSTGRES_USER: master
+#      POSTGRES_DB: hw18_projector
+#      POSTGRES_PORT: 5432
+#    ports:
+#      - 127.0.0.1:54322:5432
+#    volumes:
+#      - ./postgres/db-data-slave2:/var/lib/postgresql/data
+#      - ./postgres/docker_postgres_init_slave.sh:/docker-entrypoint-initdb.d/docker_postgres_init.sh
+#      - ./postgres/postgres_slave.conf:/etc/postgresql/postgresql.conf
+#    networks:
+#      - default
+
+  king_size_service_18:
+      container_name: king_size_service_18
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - "0.0.0.0:4888:4888"
+      volumes:
+        - .:/app/
+
+      environment:
+        ENV_NAME: local
+        # app settings
+        APP_HOST: 0.0.0.0
+        APP_PORT: 4888
+        LOG_LEVEL: DEBUG
+
+        # postgres settings
+        POSTGRES_PASSWORD: mysecretpassword
+        POSTGRES_USER: master
+        POSTGRES_DB: hw18_projector
+        POSTGRES_PORT: 5432
+        POSTGRES_HOST: projector_postgres_master
+
+      links:
+        - projector_postgres_master
+      depends_on:
+        - projector_postgres_master
+      networks:
+        - default
+
+volumes:
+  db-data:
