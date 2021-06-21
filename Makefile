@@ -49,6 +49,10 @@ run_slave: init_slave
 	docker run --rm --name $(POSTGRES_SLAVE1) -p 127.0.0.1:54321:5432 -e POSTGRES_USER=master -e POSTGRES_PASSWORD=mysecretpassword -v "$(PWD_DIR)/postgres/db-data-slave1":$(PGDATA) --network=$(NETWORK) -d postgres:13
 	docker run --rm --name $(POSTGRES_SLAVE2) -p 127.0.0.1:54322:5432 -e POSTGRES_USER=master -e POSTGRES_PASSWORD=mysecretpassword -v "$(PWD_DIR)/postgres/db-data-slave2":$(PGDATA) --network=$(NETWORK) -d postgres:13
 
+up_slave:
+	docker run --rm --name $(POSTGRES_SLAVE1) -p 127.0.0.1:54321:5432 -e POSTGRES_USER=master -e POSTGRES_PASSWORD=mysecretpassword -v "$(PWD_DIR)/postgres/db-data-slave1":$(PGDATA) --network=$(NETWORK) -d postgres:13
+	docker run --rm --name $(POSTGRES_SLAVE2) -p 127.0.0.1:54322:5432 -e POSTGRES_USER=master -e POSTGRES_PASSWORD=mysecretpassword -v "$(PWD_DIR)/postgres/db-data-slave2":$(PGDATA) --network=$(NETWORK) -d postgres:13
+
 
 init_master: open_dir
 	echo ""
